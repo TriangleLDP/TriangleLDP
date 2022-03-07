@@ -368,7 +368,7 @@ void CalcNLocSt(long long st2_num, long long st3_num, int *deg, string outfile, 
 		sen_st3 /= (double)NodeNum;
 	}
 	// Lap (noisy degree)
-	else if(NSType == 2 || NSType == 3){
+	else if(NSType == 2){
 		// Noisy degree --> deg_ns
 		for(i=0;i<NodeNum;i++){
 			deg_ns[i] = (double)deg[i] + stats::rlaplace(0.0, 1.0/EpsNsDeg, engine);
@@ -742,7 +742,7 @@ void CalcILocTri(map<int, int> *a_mat, int *deg, string outfile, double &tri_num
 		sen_tri /= (double)NodeNum;
 	}
 	// Lap (noisy degree)
-	else if(NSType == 2 || NSType == 3){
+	else if(NSType == 2){
 		// Noisy degree --> deg_ns
 		for(i=0;i<NodeNum;i++){
 			deg_ns[i] = (double)deg[i] + stats::rlaplace(0.0, 1.0/EpsNsDeg, engine);
@@ -1010,7 +1010,7 @@ void CalcILocTriE1(map<int, int> *a_mat, int *deg, string outfile, double &tri_n
 		}
 	}
 	// Lap (noisy degree)
-	else if(NSType == 2 || NSType == 3){
+	else if(NSType == 2){
 		// Noisy degree --> deg_ns
 		for(i=0;i<NodeNum;i++){
 			deg_ns[i] = (double)deg[i] + stats::rlaplace(0.0, 1.0/EpsNsDeg, engine);
@@ -1126,16 +1126,6 @@ void CalcILocTriE1(map<int, int> *a_mat, int *deg, string outfile, double &tri_n
 				sen_tri += sen;
 			}
 			sen_tri /= (double)NodeNum;
-		}
-	}
-
-	// Ignore users with few edges
-	if(NSType == 3){
-		for(i=0;i<NodeNum;i++){
-			if(deg_ns[i] * Mu < 1.0){
-				trist2_num_u[i] = 0;
-				continue;
-			}
 		}
 	}
 
@@ -1316,7 +1306,7 @@ void CalcILocTriE2(map<int, int> *a_mat, int *deg, string outfile, double &tri_n
 		}
 	}
 	// Lap (noisy degree)
-	else if(NSType == 2 || NSType == 3){
+	else if(NSType == 2){
 		// Noisy degree --> deg_ns
 		for(i=0;i<NodeNum;i++){
 			deg_ns[i] = (double)deg[i] + stats::rlaplace(0.0, 1.0/EpsNsDeg, engine);
@@ -1450,16 +1440,6 @@ void CalcILocTriE2(map<int, int> *a_mat, int *deg, string outfile, double &tri_n
 				sen_tri += sen;
 			}
 			sen_tri /= (double)NodeNum;
-		}
-	}
-
-	// Ignore users with few edges
-	if(NSType == 3){
-		for(i=0;i<NodeNum;i++){
-			if(deg_ns[i] * Mu * Mu < 1.0){
-				trist2_num_u[i] = 0;
-				continue;
-			}
 		}
 	}
 
@@ -1658,7 +1638,7 @@ void CalcILocTriE3(map<int, int> *a_mat, int *deg, string outfile, double &tri_n
 		}
 	}
 	// Lap (noisy degree)
-	else if(NSType == 2 || NSType == 3){
+	else if(NSType == 2){
 		// Noisy degree --> deg_ns
 		for(i=0;i<NodeNum;i++){
 			deg_ns[i] = (double)deg[i] + stats::rlaplace(0.0, 1.0/EpsNsDeg, engine);
@@ -1813,16 +1793,6 @@ void CalcILocTriE3(map<int, int> *a_mat, int *deg, string outfile, double &tri_n
 		}
 	}
 
-	// Ignore users with few edges
-	if(NSType == 3){
-		for(i=0;i<NodeNum;i++){
-			if(deg_ns[i] * Mu * Mu * Mu < 1.0){
-				trist2_num_u[i] = 0;
-				continue;
-			}
-		}
-	}
-
     // Empirical estimate --> tri_num_ns
     tri_num_ns = 0;
 	for(i=0;i<NodeNum;i++) tri_num_ns += trist2_num_u[i];
@@ -1904,7 +1874,7 @@ int main(int argc, char *argv[])
 		printf("[EdgeFile]: Edge file\n");
 		printf("[#nodes]: Number of nodes (-1: all)\n");
 		printf("[epsilon-mu/mu2/mu3]: Parameters epsilon and mu/mu2/mu3 (I/II/III) (mu/mu2/mu3 = exp(Eps1st)/(exp(Eps1st)+1) when it is set to 1)\n");
-		printf("[NSType]: Noise type (-1: no noise, 0: Lap (max degree), 1: Lap (degree + clip), 2: Lap (noisy degree + clip), 3: Lap (noisy degree + clip + ignore users))\n");
+		printf("[NSType]: Noise type (-1: no noise, 0: Lap (max degree), 1: Lap (true degree + clip), 2: Lap (double clip: noisy degree + clip))\n");
 		printf("[tclip(-eclip)]: Triangle and edge clipping parameters (-1: no clipping) (alg=2-4; set eclip when NSType=2)\n");
 		printf("[#itr(-1)]: Number of iterations (set #itr-1 to fix the permutation of nodes)\n");
 		printf("[alg]: Algorithm (1: interactive local, 2: efficient interactive local I, 3: efficient interactive local II, 4: efficient interactive local III, 5: non-interactive local (RR w/ emp), 6: non-interactive local (RR w/o emp), 7: [Ye+, T-KDE (mean)], 8: [Ye+, T-KDE (median)], 9: [Ye+, T-KDE (most frequent degree)], 10: non-interactive local (ARR w/ emp))\n");
@@ -2012,7 +1982,7 @@ int main(int argc, char *argv[])
 		Eps1st = Eps * Balloc[0] / Balloc_sum;
 		Eps2ndTrSt = Eps * Balloc[1] / Balloc_sum;
 	}
-	else if(NSType == 2 || NSType == 3){
+	else if(NSType == 2){
 		EpsNsDeg = Eps / 10;		// Epsilon for calculating the noisy degree
 		EpsAllbutNsDeg = Eps - EpsNsDeg;
 		Eps1st = EpsAllbutNsDeg * Balloc[0] / Balloc_sum;
