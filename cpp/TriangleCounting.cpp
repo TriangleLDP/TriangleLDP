@@ -384,9 +384,9 @@ void CalcNLocSt(long long st2_num, long long st3_num, int *deg, string outfile, 
 		// Graph projection for each user
 		st2_num_ns = st3_num_ns = 0;
 		for(i=0;i<NodeNum;i++){
-			// If deg[i] exceeds deg_ns[i], then perform graph projection
-			if((double)deg[i] > deg_ns[i]){
-				deg_ns_floor = (int)floor(deg_ns[i]);
+			deg_ns_floor = (int)floor(deg_ns[i]);
+			// If deg[i] exceeds floor(deg_ns[i]), then perform graph projection
+			if((double)deg[i] > deg_ns_floor){
 				st2_num_ns += ((long long)deg_ns_floor * ((long long)deg_ns_floor-1)) / 2;
 				st3_num_ns += ((long long)deg_ns_floor * ((long long)deg_ns_floor-1) * ((long long)deg_ns_floor-2)) / 6;
 			}
@@ -396,15 +396,13 @@ void CalcNLocSt(long long st2_num, long long st3_num, int *deg, string outfile, 
 			}
 
 			// Sensitivity for #2-stars --> sen
-			if((double)deg[i] > deg_ns[i]) sen = (double)deg_ns_floor;
-			else sen = deg[i];
+			sen = (double)deg_ns_floor;
 			// Add Lap(sen/Eps) --> st2_num_ns
 			st2_num_ns += stats::rlaplace(0.0, sen/EpsAllbutNsDeg, engine);
 			sen_st2 += sen;
 
 			// Sensitivity for #3-stars --> sen
-			if((double)deg[i] > deg_ns[i]) sen = (double)deg_ns_floor * ((double)deg_ns_floor - 1.0) / 2.0;
-			else sen = (double)deg[i] * ((double)deg[i] - 1.0) / 2.0;
+			sen = (double)deg_ns_floor * ((double)deg_ns_floor - 1.0) / 2.0;
 			// Add Lap(sen/Eps) --> st3_num_ns
 			st3_num_ns += stats::rlaplace(0.0, sen/EpsAllbutNsDeg, engine);
 			sen_st3 += sen;
