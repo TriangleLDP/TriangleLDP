@@ -2167,7 +2167,8 @@ int main(int argc, char *argv[])
 			// Divide pa3_num by 2 (because i--j--k--l and l--k--j--i are the same) --> pa3_num
 			pa3_num /= 2;
 
-			cy4_num = (pa2_pow2 - st2_num) / 2;
+			// We use the fact that (#2-paths)^2 = #2-stars + 4 * #4-cycles
+			cy4_num = (pa2_pow2 - st2_num) / 4;
 
 			if(fix_perm) outfile = outdir + "res_n" + to_string(NodeNum) + "_alg" + to_string(Alg) + "_eps" + Eps_s + "-" + Mu_s + "_ns" + to_string(NSType) + "_cl" + Clip_s + "_ba" + Balloc_s[0] + "-" + Balloc_s[1] + "_itr" + to_string(ItrNum) + "-1_4cycles.csv";
 			else outfile = outdir + "res_n" + to_string(NodeNum) + "_alg" + to_string(Alg) + "_eps" + Eps_s + "-" + Mu_s + "_ns" + to_string(NSType) + "_cl" + Clip_s + "_ba" + Balloc_s[0] + "-" + Balloc_s[1] + "_itr" + to_string(ItrNum) + "_4cycles.csv";
