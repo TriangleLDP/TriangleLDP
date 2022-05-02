@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 if [ $# -ne 1 ]; then
-    echo "USAGE: run_EvalLossLocal.sh [Dataset]"
+    echo "USAGE: run_TriangleCounting.sh [Dataset]"
     exit 1
 fi
 

@@ -4,7 +4,7 @@ CXXFLAGS	+= -isystem ./include
 CXXFLAGS	+= -MMD
 CC	= g++
 
-TARGET	=  EvalLossLocal
+TARGET	=  TriangleCounting
 
 all: $(TARGET)
 
