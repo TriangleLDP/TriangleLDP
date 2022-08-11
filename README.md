@@ -2,7 +2,7 @@
 
 This is a source code of the following paper:
 
-Jacob Imola, Takao Murakami, Kamalika Chaudhuri, "Communication-Efficient Triangle Counting under Local Differential Privacy," Proceedings of the 31st USENIX Security Symposium (USENIX Security 2022), 2022 (to appear).
+Jacob Imola, Takao Murakami, Kamalika Chaudhuri, "Communication-Efficient Triangle Counting under Local Differential Privacy," Proceedings of the 31st USENIX Security Symposium (USENIX Security 2022), pp.537-554, 2022.
 
 Full paper: https://arxiv.org/abs/2110.06485
 
