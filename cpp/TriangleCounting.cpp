@@ -2195,7 +2195,7 @@ int main(int argc, char *argv[])
 		eclip_sum = tclip_sum = 0.0;
 		eclip_num = tclip_num = 0;
 		// Interactive (2-rounds) local
-		else if (Alg == 1){
+		if (Alg == 1){
 			// Calculate #2-stars and #3-stars
         	CalcNLocSt(st2_num, st3_num, deg, outfile, st2_num_ns, st3_num_ns, sen_st2, sen_st3);
         	// Calculate #triangles
