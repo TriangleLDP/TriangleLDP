@@ -6,21 +6,22 @@ from scipy.sparse import lil_matrix
 
 ################################# Parameters ##################################
 if len(sys.argv) < 4:
-    print("Usage:",sys.argv[0],"[GPlusFile (in)] [AndEdgeFile (out)] [OrEdgeFile (out)]")
+    print("Usage:",sys.argv[0],"[GPlusFile (in)] [EdgeFile (out)] [DegFile (out)]")
     sys.exit(0)
 
 # GPlus File (input)
 GPlusFile = sys.argv[1]
-# And Edge File (output)
-AndEdgeFile = sys.argv[2]
 # Or Edge File (output)
-OrEdgeFile = sys.argv[3]
+OrEdgeFile = sys.argv[2]
+# Degree File (output)
+DegFile = sys.argv[3]
 
 UserNum = 107614
 
 #################################### Main #####################################
 
 edges_lil = lil_matrix((UserNum, UserNum))
+deg = np.zeros(UserNum)
 
 # Read edges from the GPlus file --> edges_lil
 f = open(GPlusFile, "r")
@@ -45,20 +46,14 @@ for i, line in enumerate(f):
 f.close()
 
 a1, a2 = edges_lil.nonzero()
-print("#and-edges + #or-edges:", len(a1))
 
 # Output edge information
 print("Outputting edge information.")
-f = open(AndEdgeFile, "w")
-g = open(OrEdgeFile, "w")
+f = open(OrEdgeFile, "w")
 print("#nodes", file=f)
-print("#nodes", file=g)
 print(UserNum, file=f)
-print(UserNum, file=g)
 print("node,node", file=f)
-print("node,node", file=g)
 writer = csv.writer(f, lineterminator="\n")
-writer2 = csv.writer(g, lineterminator="\n")
 for i in range(len(a1)):
     # user_ids --> user_id1, user_id2
     user_id1 = a1[i]
@@ -67,12 +62,25 @@ for i in range(len(a1)):
         if user_id1 < user_id2:
             lst = [user_id1, user_id2]
             writer.writerow(lst)
-            writer2.writerow(lst)
+            deg[user_id1] += 1
+            deg[user_id2] += 1
     else:
         if user_id1 < user_id2:
             lst = [user_id1, user_id2]
         else:
             lst = [user_id2, user_id1]
-        writer2.writerow(lst)
+        writer.writerow(lst)
+        deg[user_id1] += 1
+        deg[user_id2] += 1
 f.close()
-g.close()
+
+# Output degree information
+print("Outputting degree information.")
+f = open(DegFile, "w")
+print("node,deg", file=f)
+writer = csv.writer(f, lineterminator="\n")
+for user1 in range(UserNum):
+    # user index and her degree --> lst
+    lst = [user1, int(deg[user1])]
+    writer.writerow(lst)
+f.close()
