@@ -33,7 +33,7 @@ Run the following commands.
 
 ```
 $ cd python/
-$ python3 ReadGplus.py ../data/Gplus/gplus_combined.txt ../data/Gplus/edges.csv ../data/Gplus/deg.csv
+$ python3 ReadGPlus.py ../data/Gplus/gplus_combined.txt ../data/Gplus/edges.csv ../data/Gplus/deg.csv
 $ cd ../
 ```
 
