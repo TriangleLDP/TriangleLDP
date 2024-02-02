@@ -33,7 +33,7 @@ Run the following commands.
 
 ```
 $ cd python/
-$ python3 Read_Gplus.py data/Gplus/gplus_combined.txt data/Gplus/edges.csv data/Gplus/deg.csv
+$ python3 ReadGplus.py data/Gplus/gplus_combined.txt data/Gplus/edges.csv data/Gplus/deg.csv
 $ cd ../
 ```
 
@@ -47,7 +47,7 @@ Run the following commands.
 
 ```
 $ cd python/
-$ python3 Read_IMDB.py data/IMDB/IMDB.mtx data/IMDB/edges.csv data/IMDB/deg.csv
+$ python3 ReadIMDB.py data/IMDB/IMDB.mtx data/IMDB/edges.csv data/IMDB/deg.csv
 $ cd ../
 ```
 
