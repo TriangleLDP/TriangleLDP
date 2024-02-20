@@ -64,7 +64,10 @@ $ ./run_TriangleCounting.sh [Dataset (Gplus/IMDB)]
 $ cd ../
 ```
 
-Then experimental results for six algorithms (ARRFull_triangle, ARROneNS_triangle and ARRTwoNS_triangle with DC and d_max) will be output in data/[Dataset]/. For more details of parameter settings, see Usage of TriangleCounting.
+Then experimental results for six algorithms (ARRFull_triangle, ARROneNS_triangle and ARRTwoNS_triangle with DC and d_max) will be output in data/[Dataset]/.
+
+In run_TriangleCounting.sh, we assign 10000 as the 2nd argument, which means that n=10000. We can set n=107614 and 896308 for Gplus and IMDB, respectively, by
+assigning -1 as the 2nd argument. Note that it requires a lot of time and memory to run the code in that case, as n is very large (we used a supercomputer to run the code). For more details of parameter settings, see Usage of TriangleCounting.
 
 # Execution Environment
 We used CentOS 7.5 with gcc 4.8.5 and python 3.6.5.
