@@ -1878,7 +1878,7 @@ int main(int argc, char *argv[])
 		printf("[tclip(-eclip)]: Triangle and edge clipping parameters (-1: no clipping) (tclip = -(exponent part of beta), eclip = alpha\n");
 		printf("[#itr(-1)]: Number of iterations (set #itr-1 to fix the permutation of nodes)\n");
 		printf("[alg]: Algorithm (1: interactive local (RRFull), 2: efficient interactive local I (ARRFull), 3: efficient interactive local II (ARROneNS), 4: efficient interactive local III (ARRTwoNS), 5: non-interactive local (RR w/ empirical estimation), 6: non-interactive local (RR w/o empirical estimation), 7: [Ye+, T-KDE (mean)], 8: [Ye+, T-KDE (median)], 9: [Ye+, T-KDE (most frequent degree)], 10: non-interactive local (ARR w/ empirical estimation))\n");
-		printf("[Balloc]: Privacy budget allocation (alg=1-3): Eps1st-Eps2ndTrSt\n");
+		printf("[Balloc]: Privacy budget allocation (alg=1-4): Eps1st-Eps2ndTrSt\n");
 		return -1;
 	}
 
