@@ -1870,14 +1870,14 @@ int main(int argc, char *argv[])
 //	init_genrand(1);
 
 	if (argc < 2) {
-	    printf("Usage: %s [EdgeFile (in)] ([#nodes (default: -1)] [epsilon-mu/mu2/mu3 (default: 1-1)] [NSType (default: -1)] [tclip-eclip (default: -1)] [#itr(-1) (default: 1)] [alg (default: 0)] [Balloc (default: 1-1)])\n\n", argv[0]);
+	    printf("Usage: %s [EdgeFile (in)] ([#nodes (default: -1)] [epsilon-mu* (default: 1-1)] [NSType (default: -1)] [tclip-eclip (default: -1)] [#itr(-1) (default: 1)] [alg (default: 0)] [Balloc (default: 1-1)])\n\n", argv[0]);
 		printf("[EdgeFile]: Edge file\n");
 		printf("[#nodes]: Number of nodes (-1: all)\n");
-		printf("[epsilon-mu/mu2/mu3]: Parameters epsilon and mu/mu2/mu3 (I/II/III) (mu/mu2/mu3 = exp(Eps1st)/(exp(Eps1st)+1) when it is set to 1)\n");
-		printf("[NSType]: Noise type (-1: no noise, 0: Lap (max degree), 1: Lap (true degree + clip), 2: Lap (double clip: noisy degree + clip))\n");
-		printf("[tclip(-eclip)]: Triangle and edge clipping parameters (-1: no clipping) (alg=2-4; set eclip when NSType=2)\n");
+		printf("[epsilon-mu*]: Parameters epsilon and mu* (mu* = mu/mu^2/mu^3 in ARRFull/ARROneNS/ARRTwoNS; mu* = exp(Eps1st)/(exp(Eps1st)+1) when it is set to 1)\n");
+		printf("[NSType]: Noise type (-1: no noise, 0: Lap (max degree), 1: Lap (true degree + triangle clipping), 2: Lap (double clipping: edge clipping + triangle clipping))\n");
+		printf("[tclip(-eclip)]: Triangle and edge clipping parameters (-1: no clipping) (tclip = -(exponent part of beta), eclip = alpha\n");
 		printf("[#itr(-1)]: Number of iterations (set #itr-1 to fix the permutation of nodes)\n");
-		printf("[alg]: Algorithm (1: interactive local, 2: efficient interactive local I, 3: efficient interactive local II, 4: efficient interactive local III, 5: non-interactive local (RR w/ emp), 6: non-interactive local (RR w/o emp), 7: [Ye+, T-KDE (mean)], 8: [Ye+, T-KDE (median)], 9: [Ye+, T-KDE (most frequent degree)], 10: non-interactive local (ARR w/ emp))\n");
+		printf("[alg]: Algorithm (1: interactive local (RRFull), 2: efficient interactive local I (ARRFull), 3: efficient interactive local II (ARROneNS), 4: efficient interactive local III (ARRTwoNS), 5: non-interactive local (RR w/ empirical estimation), 6: non-interactive local (RR w/o empirical estimation), 7: [Ye+, T-KDE (mean)], 8: [Ye+, T-KDE (median)], 9: [Ye+, T-KDE (most frequent degree)], 10: non-interactive local (ARR w/ empirical estimation))\n");
 		printf("[Balloc]: Privacy budget allocation (alg=1-3): Eps1st-Eps2ndTrSt\n");
 		return -1;
 	}
